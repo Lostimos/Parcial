@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Parcial 2</title>
+    </h:head>
+    <h:body>
+        <h1>PARCIAL 2</h1>
+       <br></br>
+       <h3>PR16011</h3>
+       <br></br>
+       <div>
+           <h:form id="frm1">
+               <p:dataTable  id="ptabla" value="#{frmModeloParte.listModelo}" var="tpp" paginator="true" rows="5">
+                   <f:facet name="header">
+                      MODELO
+                   </f:facet>
+                   <p:column headerText="ID" filterBy="#{tpp.idModelo}" footerText="contains" filterMatchMode="contains">
+                          <h:outputText value="#{tpp.idModelo}" />
+                </p:column>
+                   <p:column headerText="Marca" filterBy="#{tpp.idMarca.nombre}">
+                    <h:outputText value="#{tpp.idMarca.nombre}" />
+                </p:column>
+                   <p:column headerText="Tipo" filterBy="#{tpp.idTipoVehiculo.nombre}" >
+                    <h:outputText value="#{tpp.idTipoVehiculo.nombre}" />
+                </p:column>
+                   <p:column headerText="Nombre" filterBy="#{tpp.nombre}">
+                    <h:outputText value="#{tpp.nombre}" />
+                </p:column>
+                   <p:column headerText="Año" filterBy="#{tpp.anio}" >
+                        <h:outputText value="#{tpp.anio}" />
+                </p:column>
+                
+               </p:dataTable>
+               
+               </h:form>
+       </div>
+       <br></br>
+       <div>
+           <h:form id="frm2">
+               <p:tabMenu activeIndex="#{frmModelo.tabSeleccionado}">
+                   
+    <p:menuitem value="Generalidades">
+        <f:param name="i" value="0"/>
+        <p:tab title="has elegido la wea"></p:tab>
+    </p:menuitem>
+    <p:menuitem value="Partes" >
+        <f:param name="i" value="1" />
+       
+    </p:menuitem>
+</p:tabMenu> 
+           </h:form>
+          
+       </div>
+       </h:body>
+</html>
+
