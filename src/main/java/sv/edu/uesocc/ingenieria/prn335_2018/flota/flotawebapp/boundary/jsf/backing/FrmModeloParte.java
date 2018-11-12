@@ -82,46 +82,6 @@ public class FrmModeloParte implements Serializable{
         } return this.listparte;
     }
 
-    public List<Parte> getListaPartes() {
-        return listparte;
-    }
-
-    public void setListaPartes(List<Parte> listaPartes) {
-        this.listparte = listaPartes;
-    }
-
-    public List<Modelo> getListaModelo() {
-        return listmodelo;
-    }
-
-    public void setListaModelo(List<Modelo> listaModelo) {
-        this.listmodelo = listaModelo;
-    }
-
-    public Modelo getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(Modelo modelo) {
-        this.modelo = modelo;
-    }
-
-    public TipoVehiculo getTipoVehiculo() {
-        return tipovehiculo;
-    }
-
-    public void setTipoVehiculo(TipoVehiculo tipoVehiculo) {
-        this.tipovehiculo = tipoVehiculo;
-    }
-
-    public Marca getMarca() {
-        return marca;
-    }
-
-    public void setMarca(Marca marca) {
-        this.marca = marca;
-    }
-
     public ModeloFacade getModelofacade() {
         return modelofacade;
     }
@@ -146,12 +106,36 @@ public class FrmModeloParte implements Serializable{
         this.listparte = listparte;
     }
 
-    public List<Modelo> getListModelo() {
+    public List<Modelo> getListmodelo() {
         return listmodelo;
     }
 
-    public void setListModelo(List<Modelo> listModelo) {
-        this.listmodelo = listModelo;
+    public void setListmodelo(List<Modelo> listmodelo) {
+        this.listmodelo = listmodelo;
+    }
+
+    public Modelo getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
+    }
+
+    public TipoVehiculo getTipovehiculo() {
+        return tipovehiculo;
+    }
+
+    public void setTipovehiculo(TipoVehiculo tipovehiculo) {
+        this.tipovehiculo = tipovehiculo;
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
 
     public Parte getParte() {
@@ -161,7 +145,6 @@ public class FrmModeloParte implements Serializable{
     public void setParte(Parte parte) {
         this.parte = parte;
     }
-    
-    
-    
+
+   
 }

@@ -14,24 +14,24 @@
        <br></br>
        <div>
            <h:form id="frm1">
-               <p:dataTable  id="ptabla" value="#{frmModeloParte.listModelo}" var="tpp" paginator="true" rows="5">
+               <p:dataTable  id="ptabla" value="#{frmModelo.listmodelo}" var="tpp" paginator="true" rows="5">
                    <f:facet name="header">
                       MODELO
                    </f:facet>
-                   <p:column headerText="ID" filterBy="#{tpp.idModelo}" footerText="contains" filterMatchMode="contains">
-                          <h:outputText value="#{tpp.idModelo}" />
+                   <p:column headerText="ID" >
+                       <h:outputText value="#{tpp.idModelo}" />
                 </p:column>
-                   <p:column headerText="Marca" filterBy="#{tpp.idMarca.nombre}">
-                    <h:outputText value="#{tpp.idMarca.nombre}" />
+                   <p:column headerText="Marca" >
+                       <h:outputText value="#{tpp.idMarca.nombre}" />
                 </p:column>
-                   <p:column headerText="Tipo" filterBy="#{tpp.idTipoVehiculo.nombre}" >
-                    <h:outputText value="#{tpp.idTipoVehiculo.nombre}" />
+                   <p:column headerText="Tipo" >
+                       <h:outputText value="#{tpp.idTipoVehiculo.nombre}" />
                 </p:column>
-                   <p:column headerText="Nombre" filterBy="#{tpp.nombre}">
-                    <h:outputText value="#{tpp.nombre}" />
+                   <p:column headerText="Nombre">
+                       <h:outputText value="#{tpp.nombre}" />
                 </p:column>
-                   <p:column headerText="Año" filterBy="#{tpp.anio}" >
-                        <h:outputText value="#{tpp.anio}" />
+                   <p:column headerText="Año" >
+                       <h:outputText value="#{tpp.anio}" />
                 </p:column>
                 
                </p:dataTable>
