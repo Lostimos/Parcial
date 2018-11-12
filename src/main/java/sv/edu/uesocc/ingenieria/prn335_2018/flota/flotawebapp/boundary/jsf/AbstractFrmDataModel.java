@@ -11,12 +11,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.LazyDataModel;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.Marca;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.Modelo;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.Parte;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoVehiculo;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.flotawebapp.control.AbstractFacade;
+import sv.edu.uesocc.ingenieria.prn335_2018.flota.flotawebapp.control.EstadoCRUD;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.flotawebapp.control.ModeloFacade;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.flotawebapp.control.ParteFacade;
 
@@ -45,6 +48,7 @@ public abstract class AbstractFrmDataModel<p> {
     TipoVehiculo tipovehiculo;
     Marca marca;
     Parte parte;
+    private EstadoCRUD estado;
 
     public void inicializar() {
         modelo = new Modelo();
@@ -203,5 +207,23 @@ public abstract class AbstractFrmDataModel<p> {
         this.parte = parte;
     }
 
+     public void onRowSelect(SelectEvent event) {
+        modelo = (Modelo) event.getObject();
+        this.estado = EstadoCRUD.EDITAR;
+    }
+
+    public void onRowDeselect(UnselectEvent event) {
+        this.estado = EstadoCRUD.NUEVO;
+        this.modelo = new  Modelo();
+       
+    }
+
+    public EstadoCRUD getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoCRUD estado) {
+        this.estado = estado;
+    }
     
 }

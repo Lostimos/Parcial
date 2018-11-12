@@ -8,53 +8,95 @@
         <title>Parcial 2</title>
     </h:head>
     <h:body>
-        <h1>PARCIAL 2</h1>
-       <br></br>
-       <h3>PR16011</h3>
-       <br></br>
-       <div>
-           <h:form id="frm1">
-               <p:dataTable  id="ptabla" value="#{frmModelo.listmodelo}" var="tpp" paginator="true" rows="5">
-                   <f:facet name="header">
-                      MODELO
-                   </f:facet>
-                   <p:column headerText="ID" >
-                       <h:outputText value="#{tpp.idModelo}" />
+         <h1 align="center">Kevin Stanley Pineda Ramírez</h1>
+         <br></br>
+         <h1 align="center">PR16011</h1>
+        <h1 align="center">Modelo</h1> 
+        <h:form id="form1">
+              <p:growl id="message" showDetail="true" life="2000"/>
+              <p:dataTable var="tp" value="#{frmModelo.listmodelo}" id="tablaModelo" paginator="true" rows="5"
+                         rowsPerPageTemplate="5,10,15" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" 
+                         lazy="true" selectionMode="single" selection="#{frmModelo.registro}" rowKey="#{tp.idModelo}">
+                  <p:ajax event="rowSelect" listener="#{frmModelo.onRowSelect}" update=":form2"/>
+                 
+                <f:facet name="header"></f:facet>
+                <p:column headerText="ID">
+                    <h:outputText value="#{tp.idModelo}"/>
                 </p:column>
-                   <p:column headerText="Marca" >
-                       <h:outputText value="#{tpp.idMarca.nombre}" />
+                <p:column headerText="MARCA">
+                    <h:outputText value="#{tp.idMarca.nombre}"/>
                 </p:column>
-                   <p:column headerText="Tipo" >
-                       <h:outputText value="#{tpp.idTipoVehiculo.nombre}" />
+                <p:column headerText="TIPO">
+                    <h:outputText value="#{tp.idTipoVehiculo.nombre}"/>
                 </p:column>
-                   <p:column headerText="Nombre">
-                       <h:outputText value="#{tpp.nombre}" />
+                <p:column headerText="NOMBRE">
+                    <h:outputText value="#{tp.nombre}"/>
                 </p:column>
-                   <p:column headerText="Año" >
-                       <h:outputText value="#{tpp.anio}" />
+                <p:column headerText="AÑO">
+                    <h:outputText value="#{tp.anio}"/>
                 </p:column>
-                
-               </p:dataTable>
+            </p:dataTable>
+              <p:commandButton update="@all" immediate="false" value="cancelar" onstart="wdgList.clearSelection();" actionListener="#{frmModelo.btnCancelarHandler(ae)}"></p:commandButton>
+              <p:commandButton rendered="#{frmModelo.tabSeleccionado == 0}" immediate="true" value="Nuevo" actionListener="#{frmModelo.crearNuevo()}" ></p:commandButton>
+        </h:form>
+        <h:form id="form2" rendered="#{frmModelo.tabSeleccionado ==0}">
+            <p:growl id="message" showDetail="true" life="2000"/>
+            <p:tabView effect="fade" effectDuration="fast">
+                <p:ajax event="tabChange" listener="#{frmModelo.tabChangeHandler(tce)}" update=":form2"></p:ajax>
+                <p:tab title="GENERALIDADES">
+              
+                <p:panelGrid columns="2" id="panel">
+                <p:outputLabel value="id" for="id"/>
+                <p:inputText id="id" disabled="true" value="#{frmModelo.registro.idModelo}"></p:inputText>
+             
+                 <p:outputLabel value="Tipo Vehiculo" for="tipoVehiculo"/>
+                 <p:selectOneMenu id="tipoVehiculo">
+                     <f:selectItems value="#{frmModelo.listaTipoVehiculo}" actionListener="#{frmModelo.registro.idTipoVehiculo}" var="tipo" itemLabel="#{tipo.nombre}"></f:selectItems>
+                 </p:selectOneMenu>
+                 <p:outputLabel value="Marca" for="marca"/>
+                 <p:selectOneMenu id="marca">
+                     <f:selectItems value="#{frmModelo.listaMarca}" actionListener="#{frmModelo.registro.idMarca}" var="marca" itemLabel="#{marca.nombre}"></f:selectItems>
+                 </p:selectOneMenu>
+                 <p:outputLabel value="Nombre" for="nombre"/>
+                 <p:inputText id="nombre" value="#{frmModelo.registro.nombre}"></p:inputText>
+                 <p:outputLabel value="Año" for="anio"/>
+                 
+                 <p:inputText id="anio" value="#{frmModelo.registro.anio}"/>
+                </p:panelGrid>
                
-               </h:form>
-       </div>
-       <br></br>
-       <div>
-           <h:form id="frm2">
-               <p:tabMenu activeIndex="#{frmModelo.tabSeleccionado}">
-                   
-    <p:menuitem value="Generalidades">
-        <f:param name="i" value="0"/>
-        <p:tab title="has elegido la wea"></p:tab>
-    </p:menuitem>
-    <p:menuitem value="Partes" >
-        <f:param name="i" value="1" />
-       
-    </p:menuitem>
-</p:tabMenu> 
-           </h:form>
-          
-       </div>
-       </h:body>
+                <p:commandButton onstart="wdgList.clearSelection();" value="guardar" actionListener="#{frmModelo.guardar(ae)}" update="panel"></p:commandButton>
+            
+                </p:tab>
+                <p:tab title="partes" id="partes">
+                    <p:dataTable lazy="true" var="parte" id="tablaModeloParte" paginator="true" rows="3" 
+                                 value="#{frmModelo.frmModeloParte.iniciarModelo}" selectionMode="single" rowKey="#{parte.idModeloParte}">
+                <f:facet name="header">Partes para el Modelo</f:facet>
+                <p:column headerText="Parte">
+                    <h:outputText value="#{parte.idParte.nombre}"/>
+                </p:column>
+                <p:column headerText="Activo">
+                    <h:outputText value="#{parte.activo}"/>
+                </p:column>               
+            </p:dataTable>
+                    <p:commandButton value="Cancelar" actionListener="#{frmModelo.btnCancelarHandler(ae)}"></p:commandButton>
+                    <p:panelGrid id="panelPartes" columns="2">
+                        <p:outputLabel value="Parte:" for="parte"></p:outputLabel>
+                        <p:commandButton value="SELECCIONAR PARTE" id="parte" onclick="PF('dialogWd').show();"></p:commandButton>
+                        <p:outputLabel value="Activo:" for="activo"></p:outputLabel>
+                        <p:selectBooleanCheckbox id="activo"></p:selectBooleanCheckbox>
+                    </p:panelGrid>
+                    <p:commandButton onstart="wdgList.clearSelection();" value="GUARDAR" actionListener="#{frmModelo.frmModeloParte}"></p:commandButton>
+                    <p:commandButton onstart="wdgList.clearSelection();" value="MODIFICAR" actionListener="#{frmModelo.frmModeloParte}"></p:commandButton>
+                    <p:commandButton onstart="wdgList.clearSelection();" value="ELIMINAR" actionListener="#{frmModelo.frmModeloParte}"></p:commandButton>
+                    <p:dialog showEffect="puff" hideEffect="explode" id="dialog" widgetVar="dialogWd" header="SELECCIONAR PARTE">
+                        <p:outputLabel value="SELECCIONAR PARTE POR NOMBRE" for="parteSeleccionada"></p:outputLabel>                     
+                        <p:autoComplete id="parteSeleccionada"></p:autoComplete>
+                        <p:commandButton value="CERRAR" onclick="dialogWd.hide();"></p:commandButton>
+                    </p:dialog>
+                </p:tab>
+            </p:tabView>         
+        </h:form>
+        <p:panel>Todos los derechos reservados</p:panel>
+    </h:body>
 </html>
 
